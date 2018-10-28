@@ -37,6 +37,15 @@ func sendNewMsgNotifications(client *websocket.Conn) {
 	}
 }
 
+func newMessage() []byte {
+	data, _ := json.Marshal(map[string]string{
+		"email":   fake.EmailAddress(),
+		"name":    fake.FirstName() + " " + fake.LastName(),
+		"subject": fake.Product() + " " + fake.Model(),
+	})
+	return data
+}
+
 func main() {
 	tmpl := template.Must(template.ParseFiles("index.html"))
 
@@ -54,13 +63,4 @@ func main() {
 
 	fmt.Println("starting server at :8080")
 	http.ListenAndServe(":8080", nil)
-}
-
-func newMessage() []byte {
-	data, _ := json.Marshal(map[string]string{
-		"email":   fake.EmailAddress(),
-		"name":    fake.FirstName() + " " + fake.LastName(),
-		"subject": fake.Product() + " " + fake.Model(),
-	})
-	return data
 }

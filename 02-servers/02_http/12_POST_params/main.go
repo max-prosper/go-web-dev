@@ -23,7 +23,7 @@ func loginPage(w http.ResponseWriter, r *http.Request) {
 	cookie := http.Cookie{
 
 		Name:    "session_id",
-		Value:   "rvasily",
+		Value:   "maxprosper",
 		Expires: expiration,
 	}
 

@@ -17,7 +17,7 @@ func Get(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 }
 
 /*
-curl -v -X PUT -H "Content-Type: application/json" -d '{"login":"rvasily"}' http://localhost:8080/users
+curl -v -X PUT -H "Content-Type: application/json" -d '{"login":"maxprosper"}' http://localhost:8080/users
 */
 
 func Create(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -25,7 +25,7 @@ func Create(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 }
 
 /*
-curl -v -X POST -H "Content-Type: application/json" -d '{"name":"Vasily Romanov"}' http://localhost:8080/users/rvasily
+curl -v -X POST -H "Content-Type: application/json" -d '{"name":"Vasily Romanov"}' http://localhost:8080/users/maxprosper
 */
 
 func Update(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
