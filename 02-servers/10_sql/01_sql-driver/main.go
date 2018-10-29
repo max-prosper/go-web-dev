@@ -18,6 +18,13 @@ func errPanic(err error) {
 	}
 }
 
+type Item struct {
+	Id          int
+	Title       string
+	Description string
+	Updated     sql.NullString
+}
+
 type Handler struct {
 	DB   *sql.DB
 	Tmpl *template.Template
@@ -56,7 +63,7 @@ func (h *Handler) Add(w http.ResponseWriter, r *http.Request) {
 	result, err := h.DB.Exec(
 		"INSERT INTO items (`title`, `description`) VALUES (?, ?)",
 		r.FormValue("title"),
-		r.FormValue("description"),
+		r.FormValue("description")
 	)
 	errPanic(err)
 
@@ -102,7 +109,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 		r.FormValue("title"),
 		r.FormValue("description"),
 		"maxprosper",
-		id,
+		id
 	)
 	errPanic(err)
 
@@ -119,10 +126,7 @@ func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(vars["id"])
 	errPanic(err)
 
-	result, err := h.DB.Exec(
-		"DELETE FROM items WHERE id = ?",
-		id,
-	)
+	result, err := h.DB.Exec("DELETE FROM items WHERE id = ?", id)
 	errPanic(err)
 
 	affected, err := result.RowsAffected()
@@ -158,7 +162,6 @@ func main() {
 	r := mux.NewRouter
 	r.HandleFunc("/", handlers.List).Methods("GET")
 	r.HandleFunc("/items", handlers.List).Methods("GET")
-	r.HandleFunc("/items/new", handlers.AddForm).Methods("GET")
 	r.HandleFunc("/items/new", handlers.Add).Methods("POST")
 	r.HandleFunc("/items/{id}", handlers.Edit).Methods("GET")
 	r.HandleFunc("/items/{id}", handlers.Update).Methods("POST")
